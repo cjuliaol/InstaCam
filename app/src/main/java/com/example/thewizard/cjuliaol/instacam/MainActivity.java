@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.io.File;
 
@@ -22,9 +24,9 @@ import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
 public class MainActivity extends AppCompatActivity implements MaterialTabListener{
-    private static final int CAMERA_REQUEST=10;
+
     private static final String TAG = "MainActivityLog";
-    private File mPhoto;
+    private static final int NEW_PHOTO_REQUEST = 20;
     private FeedFragment mFeedFragment;
     private ProfileFragment mProfileFragment;
     private MaterialTabHost mTabbar;
@@ -43,7 +45,18 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
         mTabbar.addTab(mTabbar.newTab().setIcon(ContextCompat.getDrawable(this, R.drawable.ic_home)).setTabListener(this));
         mTabbar.addTab(mTabbar.newTab().setIcon(ContextCompat.getDrawable(this, R.drawable.ic_profile)).setTabListener(this));
 
-        FeedFragment mFeedFragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.feed_container);
+        ImageButton camera_fab = (ImageButton) findViewById(R.id.camera_fab);
+        camera_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this,NewPhotoActivity.class);
+                startActivityForResult(intent,NEW_PHOTO_REQUEST);
+
+            }
+        });
+
+         mFeedFragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.feed_container);
         if (mFeedFragment == null) {
             mFeedFragment = new FeedFragment();
             getFragmentManager().beginTransaction()
@@ -91,21 +104,13 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
     }
 
 
-    public void onClick(View v) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        mPhoto = new File(directory,"sample.jpeg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhoto));
-        startActivityForResult(intent,CAMERA_REQUEST);
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CAMERA_REQUEST) {
+        if(requestCode == NEW_PHOTO_REQUEST) {
             if( resultCode == RESULT_OK) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(mPhoto),"image/jpeg" );
+               Photo photo = (Photo) data.getSerializableExtra(NewPhotoActivity.PHOTO_EXTRA);
+                 mFeedFragment.addPhoto(photo);
             }
         }
     }

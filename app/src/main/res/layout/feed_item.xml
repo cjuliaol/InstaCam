@@ -47,7 +47,7 @@
 
             <ImageView
                 android:id="@+id/feed_item_photo"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/sunset2"/>

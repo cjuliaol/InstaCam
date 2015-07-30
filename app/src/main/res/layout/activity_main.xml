@@ -37,6 +37,7 @@
             android:layout_height="match_parent"/>
 
         <ImageButton
+            android:id="@+id/camera_fab"
             android:layout_alignParentBottom="true"
             android:background="@drawable/fab"
             android:elevation="16dp"

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -53,6 +55,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        Photo photo = mPhotos.get(position);
+        Picasso.with(mContext).load(photo.getFile()).into(holder.mPhoto);
+        holder.mCaption.setText(photo.getCaption());
 
     }
 

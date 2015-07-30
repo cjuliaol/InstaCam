@@ -27,6 +27,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile 'com.christianjuliao.material:material:0.1.1'
     compile 'it.neokree:MaterialTabs:0.11'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
 
 }
