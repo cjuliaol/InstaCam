@@ -1,4 +1,4 @@
-package com.example.thewizard.cjuliaol.instacam;
+package com.example.thewizard.cjuliaol.livecam;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,13 +1,16 @@
 <resources>
-    <string name="app_name">InstaCam</string>
+    <string name="app_name">LiveCam</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_new_photo">NewPhotoActivity</string>
     <string name="new_caption_hint">Please add a caption ...</string>
     <string name="save">Save</string>
+    <string name="fb_key_hash">xJY0YS9qGdHgBf3aIyGSRiBXGaM=</string>
+    <string name="fb_app_id">822494941181707</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

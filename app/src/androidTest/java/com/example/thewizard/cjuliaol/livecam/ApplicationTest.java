@@ -1,4 +1,4 @@
-package com.example.thewizard.cjuliaol.instacam;
+package com.example.thewizard.cjuliaol.livecam;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

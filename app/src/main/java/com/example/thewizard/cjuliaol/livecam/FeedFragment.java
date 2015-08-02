@@ -1,22 +1,14 @@
-package com.example.thewizard.cjuliaol.instacam;
+package com.example.thewizard.cjuliaol.livecam;
 
 
-import android.content.Intent;
-import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +24,9 @@ public class FeedFragment extends Fragment {
     private FeedAdapter mAdapter;
 
     public FeedFragment() {
-        // Required empty public constructor
+
+        mPhotos = new ArrayList<Photo>();
+        mAdapter = new FeedAdapter(getActivity(), mPhotos);
     }
 
 
@@ -44,8 +38,7 @@ public class FeedFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mPhotos = new ArrayList<Photo>();
-        mAdapter = new FeedAdapter(getActivity(), mPhotos);
+
         recyclerView.setAdapter(mAdapter);
 
         return view;

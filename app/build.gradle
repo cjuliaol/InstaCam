@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0 rc3"
 
     defaultConfig {
-        applicationId "com.example.thewizard.cjuliaol.instacam"
+        applicationId "com.example.thewizard.cjuliaol.livecam"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -19,6 +19,7 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
@@ -28,6 +29,7 @@ dependencies {
     compile 'com.christianjuliao.material:material:0.1.1'
     compile 'it.neokree:MaterialTabs:0.11'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
+    compile 'com.facebook.android:facebook-android-sdk:3.21.1'
 
 }
+
