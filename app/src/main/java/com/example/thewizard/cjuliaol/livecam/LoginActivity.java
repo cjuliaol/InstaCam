@@ -3,29 +3,40 @@ package com.example.thewizard.cjuliaol.livecam;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.thewizard.cjuliaol.livecam.R;
 
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.android.Facebook;
+import com.facebook.model.GraphObject;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
+
+import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-private UiLifecycleHelper mUiLifecycleHelper;
+    private static final String TAG = "LoginActivityLog";
+    private UiLifecycleHelper mUiLifecycleHelper;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_login);
 
-
-        setContentView(R.layout.activity_login);
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("user_birthday");
 
         mUiLifecycleHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
             @Override
@@ -37,12 +48,55 @@ private UiLifecycleHelper mUiLifecycleHelper;
         mUiLifecycleHelper.onCreate(savedInstanceState);
     }
 
-    private void OnSessionStateChanged(Session session, SessionState sessionState, Exception e) {
+    private void OnSessionStateChanged(final Session session, SessionState sessionState, Exception e) {
       if (sessionState.isOpened()) {
-       Intent intent = new Intent(this,MainActivity.class);
-          startActivity(intent);
-      }
-        else {
+
+         /* List<String> permissions = Session.getActiveSession().getPermissions();
+          boolean hasBirthdayPermission = false;
+          for(String permission:permissions){
+              if (permission.equals("user_birthday")){
+                  hasBirthdayPermission = true;
+              }
+          }
+          if (!hasBirthdayPermission){
+              Session.NewPermissionsRequest permissionsRequest = new Session.NewPermissionsRequest(this, "user_birthday");
+              session.requestNewReadPermissions(permissionsRequest);
+              return;
+          }*/
+
+          Bundle parameters = new Bundle();
+          parameters.putString("fields","picture,first_name,last_name,birthday");
+
+          Request request = new Request(session, "/me", parameters, HttpMethod.GET, new Request.Callback() {
+              @Override
+              public void onCompleted(Response response) {
+                  if (session == Session.getActiveSession()) {
+                      if (response.getGraphObject()!= null) {
+
+                         GraphObject graphObject =  response.getGraphObject();
+                          User.setCurrentUser(graphObject);
+                          //if we want the current user
+                          //User.getCurrentUser();
+                          Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                          startActivity(intent);
+
+                          Log.d(TAG,response.getGraphObject().toString());
+
+
+                      }
+
+                      if (response.getError() != null ) {
+                          //TODO: add some error handling
+                      }
+
+                  }
+              }
+          });
+
+
+
+       request.executeAsync();
+      }    else {
 
       }
     }

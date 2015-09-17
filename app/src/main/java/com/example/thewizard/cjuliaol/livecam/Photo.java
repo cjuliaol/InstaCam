@@ -12,6 +12,15 @@ import java.util.UUID;
 public class Photo implements Serializable {
     private UUID mId;
     private String caption;
+    private User mUser;
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
+    }
 
     public String getCaption() {
         return caption;
